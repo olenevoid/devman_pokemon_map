@@ -15,8 +15,20 @@ class PokemonEntity(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Покемон'
     )
+
     latitude = models.FloatField(verbose_name='Широта')
     longitude = models.FloatField(verbose_name='Долгота')
+
+    appeared_at = models.DateTimeField(
+        verbose_name='Появился в',
+        null=True,
+        blank=True
+    )
+    disappeared_at = models.DateTimeField(
+        verbose_name='Исчез в',
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return (
