@@ -7,3 +7,20 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PokemonEntity(models.Model):
+    pokemon = models.ForeignKey(
+        Pokemon,
+        on_delete=models.CASCADE,
+        verbose_name='Покемон'
+    )
+    latitude = models.FloatField(verbose_name='Широта')
+    longitude = models.FloatField(verbose_name='Долгота')
+
+    def __str__(self):
+        return (
+            f'{self.pokemon.name} '
+            f'latitude: {self.latitude} '
+            f'longitude: {self.longitude} '
+        )
