@@ -1,4 +1,5 @@
 from django.db import models  # noqa F401
+from django.utils.timezone import localtime
 
 # your models here
 class Pokemon(models.Model):
@@ -62,3 +63,6 @@ class PokemonEntity(models.Model):
             f'latitude: {self.latitude} '
             f'longitude: {self.longitude} '
         )
+    
+    def exists(self) -> bool:
+        return self.appeared_at < localtime() < self.disappeared_at
