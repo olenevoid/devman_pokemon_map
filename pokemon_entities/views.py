@@ -33,6 +33,8 @@ def show_all_pokemons(request):
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon in pokemons:
         for pokemon_entity in pokemon['entities']:
+            if not pokemon_entity['exists']:
+                continue
             add_pokemon(
                 folium_map, pokemon_entity['lat'],
                 pokemon_entity['lon'],
