@@ -11,7 +11,7 @@ def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
 
     parsed_pokemon = {
         'pokemon_id': pokemon.pk,
-        'title_ru': pokemon.name,
+        'title_ru': pokemon.title_ru,
         'title_en': '',
         'title_jp': '',
         'description': pokemon.description,

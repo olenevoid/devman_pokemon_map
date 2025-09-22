@@ -4,12 +4,12 @@ from django.utils.timezone import localtime
 
 # your models here
 class Pokemon(models.Model):
-    name = models.CharField(max_length=200, verbose_name='Имя')
+    title_ru = models.CharField(max_length=200, verbose_name='Имя')
     image = models.ImageField(verbose_name='Картинка', upload_to='images/')
     description = models.TextField(verbose_name='Описание', blank=True)
 
     def __str__(self):
-        return self.name
+        return self.title_ru
 
     def get_active_entities(self):
         entities = self.pokemonentity_set.all()
@@ -68,7 +68,7 @@ class PokemonEntity(models.Model):
 
     def __str__(self):
         return (
-            f'{self.pokemon.name} '
+            f'{self.pokemon.title_ru} '
             f'latitude: {self.latitude} '
             f'longitude: {self.longitude} '
         )
