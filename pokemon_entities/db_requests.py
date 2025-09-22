@@ -14,7 +14,7 @@ def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
         'title_ru': pokemon.name,
         'title_en': '',
         'title_jp': '',
-        'description': '',
+        'description': pokemon.description,
         'img_url': pokemon.image.url,
         'next_evolution': '',
         'entities': [parse_pokemon_entity(entity) for entity in entities]

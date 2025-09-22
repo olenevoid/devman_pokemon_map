@@ -6,6 +6,7 @@ from django.utils.timezone import localtime
 class Pokemon(models.Model):
     name = models.CharField(max_length=200, verbose_name='Имя')
     image = models.ImageField(verbose_name='Картинка', upload_to='images/')
+    description = models.TextField(verbose_name='Описание', blank=True)
 
     def __str__(self):
         return self.name
