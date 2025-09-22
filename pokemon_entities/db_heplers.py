@@ -1,4 +1,5 @@
 from pokemon_entities.models import Pokemon, PokemonEntity
+from django.utils.timezone import localtime
 
 
 def parse_pokemon(pokemon: Pokemon):
@@ -28,6 +29,22 @@ def parse_pokemon_entity(pokemon_entity: PokemonEntity):
     return parsed_entity
 
 
-def get_pokemons_with_entities():
+def get_pokemons_with_entities() -> list[dict]:
     pokemons: list[Pokemon] = Pokemon.objects.filter(pokemonentity__gt=0)
-    return [parse_pokemon(pokemon) for pokemon in pokemons.distinct()]
+
+    parsed_pokemons: list[dict] = []
+
+    for pokemon in pokemons.distinct():
+        if pokemon.has_active_entities():
+            parsed_pokemons.append(parse_pokemon(pokemon))
+
+    return parsed_pokemons
+
+
+def get_active_entities() -> list[dict]:
+    entities = PokemonEntity.objects.filter(
+        appeared_at__lte=localtime(),
+        disappeared_at__gte=localtime()
+    )
+
+    return [parse_pokemon_entity(entity) for entity in entities]
