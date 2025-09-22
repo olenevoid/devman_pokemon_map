@@ -3,7 +3,7 @@ import json
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from pokemon_entities.db_heplers import get_pokemons_with_entities
+from pokemon_entities import db_requests as db
 
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -28,8 +28,7 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
 
 
 def show_all_pokemons(request):
-    pokemons = get_pokemons_with_entities()
-
+    pokemons = db.get_pokemons_with_entities()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon in pokemons:
         for pokemon_entity in pokemon['entities']:
