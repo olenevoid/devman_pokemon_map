@@ -11,7 +11,8 @@ class Pokemon(models.Model):
         return self.name
 
     def get_active_entities(self):
-        return [entity for entity in self.pokemonentity_set.all()]
+        entities = self.pokemonentity_set.all()
+        return [entity for entity in entities if entity.is_active()]
     
     def has_active_entities(self):
         return len(self.get_active_entities()) > 0
