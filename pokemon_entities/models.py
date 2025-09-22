@@ -1,6 +1,7 @@
 from django.db import models  # noqa F401
 from django.utils.timezone import localtime
 
+
 # your models here
 class Pokemon(models.Model):
     name = models.CharField(max_length=200, verbose_name='Имя')
@@ -8,6 +9,12 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_active_entities(self):
+        return [entity for entity in self.pokemonentity_set.all()]
+    
+    def has_active_entities(self):
+        return len(self.get_active_entities()) > 0
 
 
 class PokemonEntity(models.Model):
@@ -63,6 +70,6 @@ class PokemonEntity(models.Model):
             f'latitude: {self.latitude} '
             f'longitude: {self.longitude} '
         )
-    
+
     def is_active(self) -> bool:
         return self.appeared_at < localtime() < self.disappeared_at
