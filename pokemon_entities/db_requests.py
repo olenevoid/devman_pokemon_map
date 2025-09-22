@@ -29,7 +29,7 @@ def parse_pokemon_entity(pokemon_entity: PokemonEntity):
     return parsed_entity
 
 
-def get_pokemons_with_entities() -> list[dict]:
+def get_pokemons_with_active_entities() -> list[dict]:
     pokemons: list[Pokemon] = Pokemon.objects.filter(pokemonentity__gt=0)
 
     parsed_pokemons: list[dict] = []
