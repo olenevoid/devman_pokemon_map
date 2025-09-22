@@ -5,6 +5,16 @@ from django.utils.timezone import localtime
 # your models here
 class Pokemon(models.Model):
     title_ru = models.CharField(max_length=200, verbose_name='Имя')
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name='Имя (анг.)',
+        blank=True
+    )
+    title_jp = models.CharField(
+        max_length=200,
+        verbose_name='Имя (яп.)',
+        blank=True
+    )
     image = models.ImageField(verbose_name='Картинка', upload_to='images/')
     description = models.TextField(verbose_name='Описание', blank=True)
 
