@@ -2,8 +2,11 @@ from pokemon_entities.models import Pokemon, PokemonEntity
 from django.utils.timezone import localtime
 
 
-def parse_pokemon(pokemon: Pokemon):
-    entities = pokemon.pokemonentity_set.all()
+def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
+    if only_active_entities:
+        entities = pokemon.get_active_entities()
+    else:
+        entities = pokemon.pokemonentity_set.all()
 
     parsed_pokemon = {
         'pokemon_id': pokemon.pk,
@@ -36,7 +39,7 @@ def get_pokemons_with_active_entities() -> list[dict]:
 
     for pokemon in pokemons.distinct():
         if pokemon.has_active_entities():
-            parsed_pokemons.append(parse_pokemon(pokemon))
+            parsed_pokemons.append(parse_pokemon(pokemon, True))
 
     return parsed_pokemons
 
