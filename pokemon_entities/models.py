@@ -17,6 +17,14 @@ class Pokemon(models.Model):
     )
     image = models.ImageField(verbose_name='Картинка', upload_to='images/')
     description = models.TextField(verbose_name='Описание', blank=True)
+    previous_evolution = models.ForeignKey(
+        'self',
+        verbose_name='Из кого эволюционирует',
+        null=True,
+        blank=True,
+        related_name='next_evolutions',
+        on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return self.title_ru

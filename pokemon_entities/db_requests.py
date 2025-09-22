@@ -16,11 +16,25 @@ def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
         'img_url': pokemon.image.url,
-        'next_evolution': '',
+        'next_evolution': parse_evolution(pokemon.next_evolutions.first()),
+        'previous_evolution': parse_evolution(pokemon.previous_evolution),
         'entities': [parse_pokemon_entity(entity) for entity in entities]
     }
 
     return parsed_pokemon
+
+
+def parse_evolution(pokemon: Pokemon) -> dict:
+    if not pokemon:
+        return {}
+
+    parsed_evolution = {
+        "title_ru": pokemon.title_ru,
+        "pokemon_id": pokemon.pk,
+        "img_url": pokemon.image.url
+    }
+
+    return parsed_evolution
 
 
 def parse_pokemon_entity(pokemon_entity: PokemonEntity):
