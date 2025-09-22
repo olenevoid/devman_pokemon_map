@@ -62,12 +62,3 @@ def get_pokemons_with_active_entities() -> list[dict]:
 def get_pokemon_with_active_entities(pokemon_id: int) -> dict:
     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
     return parse_pokemon(pokemon, True)
-
-
-def get_active_entities() -> list[dict]:
-    entities = PokemonEntity.objects.filter(
-        appeared_at__lte=localtime(),
-        disappeared_at__gte=localtime()
-    )
-
-    return [parse_pokemon_entity(entity) for entity in entities]
