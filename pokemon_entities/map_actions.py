@@ -1,4 +1,6 @@
 import folium
+from pokemon_entities.models import Pokemon
+from django.http.request import HttpRequest
 
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -9,7 +11,12 @@ DEFAULT_IMAGE_URL = (
 )
 
 
-def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
+def add_pokemon(
+        folium_map: folium.Map,
+        lat: float,
+        lon: float,
+        image_url: str = DEFAULT_IMAGE_URL
+):
     icon = folium.features.CustomIcon(
         image_url,
         icon_size=(50, 50),
@@ -22,8 +29,14 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
     ).add_to(folium_map)
 
 
-def fill_map_with_pokemons(pokemons, request, folium_map = None):
-    folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
+def fill_map_with_pokemons(
+        pokemons: list[Pokemon],
+        request: HttpRequest,
+        folium_map: folium.Map | None = None
+) -> folium.Map:
+    if not folium_map:
+        folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
+
     for pokemon in pokemons:
         for pokemon_entity in pokemon['entities']:
             add_pokemon(
