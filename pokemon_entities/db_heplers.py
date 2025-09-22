@@ -23,7 +23,7 @@ def parse_pokemon_entity(pokemon_entity: PokemonEntity):
         'level': pokemon_entity.level,
         'lat': pokemon_entity.latitude,
         'lon': pokemon_entity.longitude,
-        'exists': pokemon_entity.exists() 
+        'exists': pokemon_entity.is_active() 
     }
     return parsed_entity
 

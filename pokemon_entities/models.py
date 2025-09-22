@@ -64,5 +64,5 @@ class PokemonEntity(models.Model):
             f'longitude: {self.longitude} '
         )
     
-    def exists(self) -> bool:
+    def is_active(self) -> bool:
         return self.appeared_at < localtime() < self.disappeared_at
