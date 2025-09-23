@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from pokemon_entities import db_requests as db
 from pokemon_entities.map_actions import fill_map_with_pokemons
+from pokemon_entities.models import Pokemon
+from django.shortcuts import get_object_or_404
 
 
 def show_all_pokemons(request: HttpRequest) -> HttpResponse:
@@ -27,12 +29,13 @@ def show_all_pokemons(request: HttpRequest) -> HttpResponse:
 
 
 def show_pokemon(request: HttpRequest, pokemon_id: int) -> HttpResponse:
-    requested_pokemon = db.get_pokemon_with_active_entities(pokemon_id)
-    folium_map = fill_map_with_pokemons([requested_pokemon,], request)
+    requested_pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+    parsed_pokemon = db.parse_pokemon(requested_pokemon)
+    folium_map = fill_map_with_pokemons([parsed_pokemon,], request)
 
     context = {
         'map': folium_map._repr_html_(),
-        'pokemon': requested_pokemon
+        'pokemon': parsed_pokemon
     }
 
     return render(request, 'pokemon.html', context=context)

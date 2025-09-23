@@ -1,5 +1,4 @@
 from pokemon_entities.models import Pokemon, PokemonEntity
-from django.shortcuts import get_object_or_404
 
 
 def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
@@ -56,8 +55,3 @@ def get_pokemons_with_active_entities() -> list[dict]:
             parsed_pokemons.append(parse_pokemon(pokemon, True))
 
     return parsed_pokemons
-
-
-def get_pokemon_with_active_entities(pokemon_id: int) -> dict:
-    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
-    return parse_pokemon(pokemon, True)
