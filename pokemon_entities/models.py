@@ -30,7 +30,7 @@ class Pokemon(models.Model):
         return self.title_ru
 
     def get_active_entities(self):
-        entities = self.pokemonentity_set.all()
+        entities = self.entities.all()
         return [entity for entity in entities if entity.is_active()]
     
     def has_active_entities(self):
@@ -41,7 +41,8 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
         on_delete=models.CASCADE,
-        verbose_name='Покемон'
+        verbose_name='Покемон',
+        related_name='entities'
     )
 
     latitude = models.FloatField(verbose_name='Широта')

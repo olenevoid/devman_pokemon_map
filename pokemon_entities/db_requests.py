@@ -7,7 +7,7 @@ def parse_pokemon(pokemon: Pokemon, only_active_entities: bool = False):
     if only_active_entities:
         entities = pokemon.get_active_entities()
     else:
-        entities = pokemon.pokemonentity_set.all()
+        entities = pokemon.entities.all()
 
     parsed_pokemon = {
         'pokemon_id': pokemon.pk,
@@ -48,7 +48,7 @@ def parse_pokemon_entity(pokemon_entity: PokemonEntity):
 
 
 def get_pokemons_with_active_entities() -> list[dict]:
-    pokemons: list[Pokemon] = Pokemon.objects.filter(pokemonentity__gt=0)
+    pokemons: list[Pokemon] = Pokemon.objects.filter(entities__gt=0)
 
     parsed_pokemons: list[dict] = []
 
