@@ -1,5 +1,4 @@
 from pokemon_entities.models import Pokemon, PokemonEntity
-from django.utils.timezone import localtime
 from django.shortcuts import get_object_or_404
 
 
